@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.strategy.CommentsMapper">
+    
+      <!-- 添加 -->
+    <insert id="save" parameterType="com.bdqn.pojo.strategy.Comments" >
+        insert into comments(id,UID,CommentType,Comment,createDate,image,score) values (#{id},#{UID},#{CommentType},#{Comment},#{createDate},#{image},#{score})    
+    </insert> 
+    
+    <!-- 查询所有 -->
+    <select id="list" resultType="com.bdqn.pojo.strategy.Comments" >
+        select * from comments
+    </select> 
+    
+</mapper>

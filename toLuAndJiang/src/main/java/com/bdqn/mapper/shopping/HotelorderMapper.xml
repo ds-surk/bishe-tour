@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.shopping.HotelorderMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.shopping.Hotelorder">
+    <constructor>
+      <idArg column="HotelNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="HotelID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="CheckIn" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="CheckOut" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="CreatedTime" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="UID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    HotelNumber, HotelID, CheckIn, CheckOut, CreatedTime, UID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hotelorder
+    where UID = #{0,jdbcType=INTEGER} and HotelNumber = #{1,jdbcType=INTEGER}
+  </select>
+</mapper>

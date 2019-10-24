@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.flight.SpecialTicketMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.flight.SpecialTicket">
+    <constructor>
+      <idArg column="FlightID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="FlightNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CompanyID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="chufaCompany" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="daodaCompany" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AirType" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="SeatID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="BeginTime" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="chufaTime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="daodaTime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="totalTime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="BeginCity" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TransfersCity" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Destination" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="RoundType" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Zhundian" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="Discount" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="Price" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FlightID, FlightNumber, CompanyID, chufaCompany, daodaCompany, AirType, SeatID, BeginTime, 
+    chufaTime, daodaTime, totalTime, BeginCity, TransfersCity, Destination, RoundType, 
+    Zhundian, Discount, Price
+  </sql>
+  <select id="selectByExample" parameterType="com.bdqn.pojo.flight.SpecialTicketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flightmessage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from flightmessage
+    where FlightID = #{flightid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from flightmessage
+    where FlightID = #{flightid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bdqn.pojo.flight.SpecialTicketExample">
+    delete from flightmessage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.pojo.flight.SpecialTicket">
+    insert into flightmessage (FlightID, FlightNumber, CompanyID, 
+      chufaCompany, daodaCompany, AirType, 
+      SeatID, BeginTime, chufaTime, 
+      daodaTime, totalTime, BeginCity, 
+      TransfersCity, Destination, RoundType, 
+      Zhundian, Discount, Price
+      )
+    values (#{flightid,jdbcType=INTEGER}, #{flightnumber,jdbcType=VARCHAR}, #{companyid,jdbcType=INTEGER}, 
+      #{chufacompany,jdbcType=VARCHAR}, #{daodacompany,jdbcType=VARCHAR}, #{airtype,jdbcType=VARCHAR}, 
+      #{seatid,jdbcType=VARCHAR}, #{begintime,jdbcType=DATE}, #{chufatime,jdbcType=VARCHAR}, 
+      #{daodatime,jdbcType=VARCHAR}, #{totaltime,jdbcType=VARCHAR}, #{begincity,jdbcType=VARCHAR}, 
+      #{transferscity,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR}, #{roundtype,jdbcType=VARCHAR}, 
+      #{zhundian,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, #{price,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.pojo.flight.SpecialTicket">
+    insert into flightmessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="flightid != null">
+        FlightID,
+      </if>
+      <if test="flightnumber != null">
+        FlightNumber,
+      </if>
+      <if test="companyid != null">
+        CompanyID,
+      </if>
+      <if test="chufacompany != null">
+        chufaCompany,
+      </if>
+      <if test="daodacompany != null">
+        daodaCompany,
+      </if>
+      <if test="airtype != null">
+        AirType,
+      </if>
+      <if test="seatid != null">
+        SeatID,
+      </if>
+      <if test="begintime != null">
+        BeginTime,
+      </if>
+      <if test="chufatime != null">
+        chufaTime,
+      </if>
+      <if test="daodatime != null">
+        daodaTime,
+      </if>
+      <if test="totaltime != null">
+        totalTime,
+      </if>
+      <if test="begincity != null">
+        BeginCity,
+      </if>
+      <if test="transferscity != null">
+        TransfersCity,
+      </if>
+      <if test="destination != null">
+        Destination,
+      </if>
+      <if test="roundtype != null">
+        RoundType,
+      </if>
+      <if test="zhundian != null">
+        Zhundian,
+      </if>
+      <if test="discount != null">
+        Discount,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="flightid != null">
+        #{flightid,jdbcType=INTEGER},
+      </if>
+      <if test="flightnumber != null">
+        #{flightnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null">
+        #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="chufacompany != null">
+        #{chufacompany,jdbcType=VARCHAR},
+      </if>
+      <if test="daodacompany != null">
+        #{daodacompany,jdbcType=VARCHAR},
+      </if>
+      <if test="airtype != null">
+        #{airtype,jdbcType=VARCHAR},
+      </if>
+      <if test="seatid != null">
+        #{seatid,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=DATE},
+      </if>
+      <if test="chufatime != null">
+        #{chufatime,jdbcType=VARCHAR},
+      </if>
+      <if test="daodatime != null">
+        #{daodatime,jdbcType=VARCHAR},
+      </if>
+      <if test="totaltime != null">
+        #{totaltime,jdbcType=VARCHAR},
+      </if>
+      <if test="begincity != null">
+        #{begincity,jdbcType=VARCHAR},
+      </if>
+      <if test="transferscity != null">
+        #{transferscity,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="roundtype != null">
+        #{roundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="zhundian != null">
+        #{zhundian,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bdqn.pojo.flight.SpecialTicketExample" resultType="java.lang.Long">
+    select count(*) from flightmessage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update flightmessage
+    <set>
+      <if test="record.flightid != null">
+        FlightID = #{record.flightid,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightnumber != null">
+        FlightNumber = #{record.flightnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyid != null">
+        CompanyID = #{record.companyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.chufacompany != null">
+        chufaCompany = #{record.chufacompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daodacompany != null">
+        daodaCompany = #{record.daodacompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airtype != null">
+        AirType = #{record.airtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seatid != null">
+        SeatID = #{record.seatid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.begintime != null">
+        BeginTime = #{record.begintime,jdbcType=DATE},
+      </if>
+      <if test="record.chufatime != null">
+        chufaTime = #{record.chufatime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.daodatime != null">
+        daodaTime = #{record.daodatime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totaltime != null">
+        totalTime = #{record.totaltime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.begincity != null">
+        BeginCity = #{record.begincity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferscity != null">
+        TransfersCity = #{record.transferscity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destination != null">
+        Destination = #{record.destination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roundtype != null">
+        RoundType = #{record.roundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhundian != null">
+        Zhundian = #{record.zhundian,jdbcType=DOUBLE},
+      </if>
+      <if test="record.discount != null">
+        Discount = #{record.discount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.price != null">
+        Price = #{record.price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update flightmessage
+    set FlightID = #{record.flightid,jdbcType=INTEGER},
+      FlightNumber = #{record.flightnumber,jdbcType=VARCHAR},
+      CompanyID = #{record.companyid,jdbcType=INTEGER},
+      chufaCompany = #{record.chufacompany,jdbcType=VARCHAR},
+      daodaCompany = #{record.daodacompany,jdbcType=VARCHAR},
+      AirType = #{record.airtype,jdbcType=VARCHAR},
+      SeatID = #{record.seatid,jdbcType=VARCHAR},
+      BeginTime = #{record.begintime,jdbcType=DATE},
+      chufaTime = #{record.chufatime,jdbcType=VARCHAR},
+      daodaTime = #{record.daodatime,jdbcType=VARCHAR},
+      totalTime = #{record.totaltime,jdbcType=VARCHAR},
+      BeginCity = #{record.begincity,jdbcType=VARCHAR},
+      TransfersCity = #{record.transferscity,jdbcType=VARCHAR},
+      Destination = #{record.destination,jdbcType=VARCHAR},
+      RoundType = #{record.roundtype,jdbcType=VARCHAR},
+      Zhundian = #{record.zhundian,jdbcType=DOUBLE},
+      Discount = #{record.discount,jdbcType=DOUBLE},
+      Price = #{record.price,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.pojo.flight.SpecialTicket">
+    update flightmessage
+    <set>
+      <if test="flightnumber != null">
+        FlightNumber = #{flightnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null">
+        CompanyID = #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="chufacompany != null">
+        chufaCompany = #{chufacompany,jdbcType=VARCHAR},
+      </if>
+      <if test="daodacompany != null">
+        daodaCompany = #{daodacompany,jdbcType=VARCHAR},
+      </if>
+      <if test="airtype != null">
+        AirType = #{airtype,jdbcType=VARCHAR},
+      </if>
+      <if test="seatid != null">
+        SeatID = #{seatid,jdbcType=VARCHAR},
+      </if>
+      <if test="begintime != null">
+        BeginTime = #{begintime,jdbcType=DATE},
+      </if>
+      <if test="chufatime != null">
+        chufaTime = #{chufatime,jdbcType=VARCHAR},
+      </if>
+      <if test="daodatime != null">
+        daodaTime = #{daodatime,jdbcType=VARCHAR},
+      </if>
+      <if test="totaltime != null">
+        totalTime = #{totaltime,jdbcType=VARCHAR},
+      </if>
+      <if test="begincity != null">
+        BeginCity = #{begincity,jdbcType=VARCHAR},
+      </if>
+      <if test="transferscity != null">
+        TransfersCity = #{transferscity,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null">
+        Destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="roundtype != null">
+        RoundType = #{roundtype,jdbcType=VARCHAR},
+      </if>
+      <if test="zhundian != null">
+        Zhundian = #{zhundian,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        Discount = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FlightID = #{flightid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.pojo.flight.SpecialTicket">
+    update flightmessage
+    set FlightNumber = #{flightnumber,jdbcType=VARCHAR},
+      CompanyID = #{companyid,jdbcType=INTEGER},
+      chufaCompany = #{chufacompany,jdbcType=VARCHAR},
+      daodaCompany = #{daodacompany,jdbcType=VARCHAR},
+      AirType = #{airtype,jdbcType=VARCHAR},
+      SeatID = #{seatid,jdbcType=VARCHAR},
+      BeginTime = #{begintime,jdbcType=DATE},
+      chufaTime = #{chufatime,jdbcType=VARCHAR},
+      daodaTime = #{daodatime,jdbcType=VARCHAR},
+      totalTime = #{totaltime,jdbcType=VARCHAR},
+      BeginCity = #{begincity,jdbcType=VARCHAR},
+      TransfersCity = #{transferscity,jdbcType=VARCHAR},
+      Destination = #{destination,jdbcType=VARCHAR},
+      RoundType = #{roundtype,jdbcType=VARCHAR},
+      Zhundian = #{zhundian,jdbcType=DOUBLE},
+      Discount = #{discount,jdbcType=DOUBLE},
+      Price = #{price,jdbcType=VARCHAR}
+    where FlightID = #{flightid,jdbcType=INTEGER}
+  </update>
+  <!-- 特价机票 -->
+  <select id="getSpecialTicketsList" parameterType="com.bdqn.pojo.flight.SpecialTicket" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from flightmessage 
+  
+  </select>
+  
+  <select id="getAreaMenu" resultType="SpecialTicket">
+		 select
+  <include refid="Base_Column_List" />
+  		from flightmessage  f
+  
+		  <trim prefix="where" prefixOverrides="and | or">
+				<if test="companyid != null">
+					and f.companyid = #{companyid}
+				</if>
+				
+		  </trim>
+	</select>
+</mapper>

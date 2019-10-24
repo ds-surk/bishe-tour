@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.shopping.ShoppingcartMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.shopping.Shoppingcart">
+    <constructor>
+      <idArg column="ShoppingNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="UID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="ShoppingType" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="CreatedTime" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="ShoppingState" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="HotelNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TicketNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TravelNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ShoppingNumber, UID, ShoppingType, Price, CreatedTime, ShoppingState, HotelNumber, 
+    TicketNumber, TravelNumber
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shoppingcart
+    where UID = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shoppingcart
+    where ShoppingNumber = #{shoppingnumber,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.pojo.shopping.Shoppingcart">
+    insert into shoppingcart (ShoppingNumber, UID, ShoppingType, 
+      Price, CreatedTime, ShoppingState, 
+      HotelNumber, TicketNumber, TravelNumber
+      )
+    values (#{shoppingnumber,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{shoppingtype,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{createdtime,jdbcType=DATE}, #{shoppingstate,jdbcType=INTEGER}, 
+      #{hotelnumber,jdbcType=INTEGER}, #{ticketnumber,jdbcType=INTEGER}, #{travelnumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.pojo.shopping.Shoppingcart">
+    insert into shoppingcart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shoppingnumber != null">
+        ShoppingNumber,
+      </if>
+      <if test="uid != null">
+        UID,
+      </if>
+      <if test="shoppingtype != null">
+        ShoppingType,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="createdtime != null">
+        CreatedTime,
+      </if>
+      <if test="shoppingstate != null">
+        ShoppingState,
+      </if>
+      <if test="hotelnumber != null">
+        HotelNumber,
+      </if>
+      <if test="ticketnumber != null">
+        TicketNumber,
+      </if>
+      <if test="travelnumber != null">
+        TravelNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shoppingnumber != null">
+        #{shoppingnumber,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingtype != null">
+        #{shoppingtype,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=DATE},
+      </if>
+      <if test="shoppingstate != null">
+        #{shoppingstate,jdbcType=INTEGER},
+      </if>
+      <if test="hotelnumber != null">
+        #{hotelnumber,jdbcType=INTEGER},
+      </if>
+      <if test="ticketnumber != null">
+        #{ticketnumber,jdbcType=INTEGER},
+      </if>
+      <if test="travelnumber != null">
+        #{travelnumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.pojo.shopping.Shoppingcart">
+    update shoppingcart
+    <set>
+      <if test="uid != null">
+        UID = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="shoppingtype != null">
+        ShoppingType = #{shoppingtype,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="createdtime != null">
+        CreatedTime = #{createdtime,jdbcType=DATE},
+      </if>
+      <if test="shoppingstate != null">
+        ShoppingState = #{shoppingstate,jdbcType=INTEGER},
+      </if>
+      <if test="hotelnumber != null">
+        HotelNumber = #{hotelnumber,jdbcType=INTEGER},
+      </if>
+      <if test="ticketnumber != null">
+        TicketNumber = #{ticketnumber,jdbcType=INTEGER},
+      </if>
+      <if test="travelnumber != null">
+        TravelNumber = #{travelnumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ShoppingNumber = #{shoppingnumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.pojo.shopping.Shoppingcart">
+    update shoppingcart
+    set UID = #{uid,jdbcType=INTEGER},
+      ShoppingType = #{shoppingtype,jdbcType=INTEGER},
+      Price = #{price,jdbcType=DOUBLE},
+      CreatedTime = #{createdtime,jdbcType=DATE},
+      ShoppingState = #{shoppingstate,jdbcType=INTEGER},
+      HotelNumber = #{hotelnumber,jdbcType=INTEGER},
+      TicketNumber = #{ticketnumber,jdbcType=INTEGER},
+      TravelNumber = #{travelnumber,jdbcType=INTEGER}
+    where ShoppingNumber = #{shoppingnumber,jdbcType=INTEGER}
+  </update>
+</mapper>

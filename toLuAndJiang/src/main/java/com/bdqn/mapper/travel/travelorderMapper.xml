@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.travel.travelorderMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.travel.travelorder">
+    <constructor>
+      <idArg column="TravelNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TravelID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="CreatedTime" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="UID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Count" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Discount" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="Price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="SumPrice" javaType="java.lang.Double" jdbcType="DOUBLE" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    TravelNumber, TravelID, CreatedTime, UID, Count, Discount, Price, SumPrice
+  </sql>
+  
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from travelorder
+    where UID = #{0,jdbcType=INTEGER} and TravelNumber = #{1,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+  
+  
+  <!-- <sql id="Base_Column_List">
+    TravelNumber, TravelID, CreatedTime, UID, Count, Discount, Price, SumPrice
+  </sql>
+  <select id="selectByPrimaryKey1" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from travelorder
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from travelorder
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </delete> -->
+  <insert id="insert1" parameterType="com.bdqn.pojo.travel.travelorder">
+    insert into travelorder (TravelNumber, TravelID, CreatedTime, 
+      UID, Count, Discount, 
+      Price, SumPrice)
+    values (#{travelnumber,jdbcType=INTEGER}, #{travelid,jdbcType=INTEGER}, #{createdtime,jdbcType=DATE}, 
+      #{uid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{discount,jdbcType=DOUBLE}, 
+      #{price,jdbcType=DOUBLE}, #{sumprice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective1" parameterType="com.bdqn.pojo.travel.travelorder">
+    insert into travelorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="travelnumber != null">
+        TravelNumber,
+      </if>
+      <if test="travelid != null">
+        TravelID,
+      </if>
+      <if test="createdtime != null">
+        CreatedTime,
+      </if>
+      <if test="uid != null">
+        UID,
+      </if>
+      <if test="count != null">
+        Count,
+      </if>
+      <if test="discount != null">
+        Discount,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="sumprice != null">
+        SumPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="travelnumber != null">
+        #{travelnumber,jdbcType=INTEGER},
+      </if>
+      <if test="travelid != null">
+        #{travelid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=DATE},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="sumprice != null">
+        #{sumprice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <!-- 
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.pojo.travel.travelorder">
+    update travelorder
+    <set>
+      <if test="travelid != null">
+        TravelID = #{travelid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null">
+        CreatedTime = #{createdtime,jdbcType=DATE},
+      </if>
+      <if test="uid != null">
+        UID = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        Count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        Discount = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="sumprice != null">
+        SumPrice = #{sumprice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.pojo.travel.travelorder">
+    update travelorder
+    set TravelID = #{travelid,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=DATE},
+      UID = #{uid,jdbcType=INTEGER},
+      Count = #{count,jdbcType=INTEGER},
+      Discount = #{discount,jdbcType=DOUBLE},
+      Price = #{price,jdbcType=DOUBLE},
+      SumPrice = #{sumprice,jdbcType=DOUBLE}
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.travel.travelorder">
+    <constructor>
+      <idArg column="TravelNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TravelID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="CreatedTime" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="UID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Count" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Discount" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="Price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="SumPrice" javaType="java.lang.Double" jdbcType="DOUBLE" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    TravelNumber, TravelID, CreatedTime, UID, Count, Discount, Price, SumPrice
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from travelorder
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from travelorder
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.pojo.travel.travelorder">
+    insert into travelorder (TravelNumber, TravelID, CreatedTime, 
+      UID, Count, Discount, 
+      Price, SumPrice)
+    values (#{travelnumber,jdbcType=INTEGER}, #{travelid,jdbcType=INTEGER}, #{createdtime,jdbcType=DATE}, 
+      #{uid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{discount,jdbcType=DOUBLE}, 
+      #{price,jdbcType=DOUBLE}, #{sumprice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.pojo.travel.travelorder">
+    insert into travelorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="travelnumber != null">
+        TravelNumber,
+      </if>
+      <if test="travelid != null">
+        TravelID,
+      </if>
+      <if test="createdtime != null">
+        CreatedTime,
+      </if>
+      <if test="uid != null">
+        UID,
+      </if>
+      <if test="count != null">
+        Count,
+      </if>
+      <if test="discount != null">
+        Discount,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="sumprice != null">
+        SumPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="travelnumber != null">
+        #{travelnumber,jdbcType=INTEGER},
+      </if>
+      <if test="travelid != null">
+        #{travelid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=DATE},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="sumprice != null">
+        #{sumprice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.pojo.travel.travelorder">
+    update travelorder
+    <set>
+      <if test="travelid != null">
+        TravelID = #{travelid,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null">
+        CreatedTime = #{createdtime,jdbcType=DATE},
+      </if>
+      <if test="uid != null">
+        UID = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        Count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        Discount = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="sumprice != null">
+        SumPrice = #{sumprice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.pojo.travel.travelorder">
+    update travelorder
+    set TravelID = #{travelid,jdbcType=INTEGER},
+      CreatedTime = #{createdtime,jdbcType=DATE},
+      UID = #{uid,jdbcType=INTEGER},
+      Count = #{count,jdbcType=INTEGER},
+      Discount = #{discount,jdbcType=DOUBLE},
+      Price = #{price,jdbcType=DOUBLE},
+      SumPrice = #{sumprice,jdbcType=DOUBLE}
+    where TravelNumber = #{travelnumber,jdbcType=INTEGER}
+  </update> -->
+</mapper>

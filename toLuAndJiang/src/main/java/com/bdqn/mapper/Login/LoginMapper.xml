@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.mapper.Login.LoginMapper">
+
+	<select id="findUsersByUserEmail" resultType="com.bdqn.pojo.shopping.User"
+		parameterType="String">
+		select * from user
+		where email=#{email}
+	</select>
+
+
+	<!--增加用户邮箱和密码进行注册 -->
+	<insert id="registerByUserEmailAndPassword">
+		insert into user (email,password,UID)
+		values (#{email},#{password},#{UID})
+	</insert>
+
+	<update id="modifyPasswordByUserEmail">
+		update user set
+		password=#{newpassword} where email=#{email}
+	</update>
+	
+	<!-- 
+	<select id="findUsersByUserPhone" resultType="User"
+		parameterType="String">
+		select * from user
+		where phone=#{phone}
+	</select>
+
+
+	增加用户手机和密码进行注册
+	<insert id="registerByUserPhoneAndPassword">
+		insert into user (phone,password)
+		values (#{phone},#{password})
+	</insert>
+
+	<update id="modifyPasswordByUserPhone">
+		update user set
+		password=#{newpassword} where phone=#{phone}
+	</update> -->
+
+</mapper>

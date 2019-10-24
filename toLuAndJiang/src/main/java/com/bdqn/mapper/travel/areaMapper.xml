@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.travel.areaMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.travel.area">
+    <constructor>
+      <idArg column="AreaID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Area" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CountryID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="AreaLONG" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="AreaLAT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TFrom" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    AreaID, Area, CountryID, AreaLONG, AreaLAT, TFrom
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where AreaID = #{areaid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey1"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from area
+    where TFrom = #{tfrom}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from area
+    where AreaID = #{areaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.pojo.travel.area">
+    insert into area (AreaID, Area, CountryID, 
+      AreaLONG, AreaLAT, TFrom
+      )
+    values (#{areaid,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR}, #{countryid,jdbcType=INTEGER}, 
+      #{arealong,jdbcType=INTEGER}, #{arealat,jdbcType=INTEGER}, #{tfrom,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.pojo.travel.area">
+    insert into area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaid != null">
+        AreaID,
+      </if>
+      <if test="area != null">
+        Area,
+      </if>
+      <if test="countryid != null">
+        CountryID,
+      </if>
+      <if test="arealong != null">
+        AreaLONG,
+      </if>
+      <if test="arealat != null">
+        AreaLAT,
+      </if>
+      <if test="tfrom != null">
+        TFrom,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="areaid != null">
+        #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="countryid != null">
+        #{countryid,jdbcType=INTEGER},
+      </if>
+      <if test="arealong != null">
+        #{arealong,jdbcType=INTEGER},
+      </if>
+      <if test="arealat != null">
+        #{arealat,jdbcType=INTEGER},
+      </if>
+      <if test="tfrom != null">
+        #{tfrom,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.pojo.travel.area">
+    update area
+    <set>
+      <if test="area != null">
+        Area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="countryid != null">
+        CountryID = #{countryid,jdbcType=INTEGER},
+      </if>
+      <if test="arealong != null">
+        AreaLONG = #{arealong,jdbcType=INTEGER},
+      </if>
+      <if test="arealat != null">
+        AreaLAT = #{arealat,jdbcType=INTEGER},
+      </if>
+      <if test="tfrom != null">
+        TFrom = #{tfrom,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AreaID = #{areaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.pojo.travel.area">
+    update area
+    set Area = #{area,jdbcType=VARCHAR},
+      CountryID = #{countryid,jdbcType=INTEGER},
+      AreaLONG = #{arealong,jdbcType=INTEGER},
+      AreaLAT = #{arealat,jdbcType=INTEGER},
+      TFrom = #{tfrom,jdbcType=VARCHAR}
+    where AreaID = #{areaid,jdbcType=INTEGER}
+  </update>
+</mapper>

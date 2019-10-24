@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.shopping.TicketorderMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.shopping.Ticketorder">
+    <constructor>
+      <idArg column="TicketNumber" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="FlightID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="CreatedTime" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="Cabin" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="UID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    TicketNumber, FlightID, CreatedTime, Cabin, Price, UID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ticketorder
+    where UID = #{0,jdbcType=INTEGER} and TicketNumber = #{1,jdbcType=INTEGER}
+  </select>
+</mapper>

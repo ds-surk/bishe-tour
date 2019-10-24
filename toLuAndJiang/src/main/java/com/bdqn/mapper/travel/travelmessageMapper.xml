@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.mapper.travel.travelmessageMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.pojo.travel.travelmessage">
+    <constructor>
+      <idArg column="TravelID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TravelName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CheckIn" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="CheckOut" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="Price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="Discount" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="Supplier" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AreaID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="AttractionsID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TypeID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Picture" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="OutPicture" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Country" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="traveltype" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TFrom" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TDay" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="Mouth" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="AttractionLONG" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="AttractionLAT" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="Introduce" javaType="java.lang.String" jdbcType="INTEGER" />
+      <arg column="Shifts" javaType="java.lang.String" jdbcType="INTEGER" />
+       <arg column="CommentCount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="TravelCount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+       <arg column="Score" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    TravelID, TravelName, CheckIn, CheckOut, Price, Discount, Supplier, AreaID, AttractionsID, 
+    TypeID, Picture, OutPicture
+  </sql>
+  
+  <sql id="Base_Column_List2">
+    t.TravelID, TravelName, CheckIn, CheckOut, Price, Discount, Supplier, t.AreaID, ac.AttractionsID, 
+    t.TypeID, Picture, OutPicture, c.Country, p.traveltype, a.TFrom, TDay, Mouth,AttractionLONG,AttractionLAT,Introduce,Shifts,CommentCount,TravelCount,Score
+  </sql>
+  
+  
+  <!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from travelmessage
+    where TravelID = #{travelid,jdbcType=INTEGER}
+  </select>  -->
+<!--   国外 -->
+  <select id="getTravelMessageList" parameterType="travelmessage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+    <!-- from travelmessage t join area a on t.AreaID=a.AreaID WHERE CountryID !=1 -->
+from travelmessage t 
+join attractions ac on t.AttractionsID=ac.AttractionsID
+join area a on t.AreaID=a.AreaID 
+join country c on a.CountryID=c.CountryID
+join traveltype p on t.TypeID=p.TypeID
+join travelcomment tc on t.TravelID=tc.TravelID
+WHERE a.CountryID!=1
+  </select>
+<!--   国内 -->
+  <select id="getDTravelMessageList" parameterType="travelmessage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+    <!-- from travelmessage t join area a on t.AreaID=a.AreaID WHERE CountryID !=1 -->
+from travelmessage t 
+join attractions ac on t.AttractionsID=ac.AttractionsID
+join area a on t.AreaID=a.AreaID 
+join country c on a.CountryID=c.CountryID
+join traveltype p on t.TypeID=p.TypeID
+join travelcomment tc on t.TravelID=tc.TravelID
+WHERE a.CountryID=1
+  </select>
+<!--   主题旅游 -->
+<select id="getThemeTravelList" parameterType="travelmessage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+    <!-- from travelmessage t join area a on t.AreaID=a.AreaID WHERE CountryID !=1 -->
+from travelmessage t 
+join attractions ac on t.AttractionsID=ac.AttractionsID
+join area a on t.AreaID=a.AreaID 
+join country c on a.CountryID=c.CountryID
+join traveltype p on t.TypeID=p.TypeID
+join travelcomment tc on t.TravelID=tc.TravelID
+WHERE t.TypeID=1
+  </select>
+<!--   旅游景点 -->
+<select id="getAttractions" parameterType="travelmessage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+    <!-- from travelmessage t join area a on t.AreaID=a.AreaID WHERE CountryID !=1 -->
+from travelmessage t 
+join attractions ac on t.AttractionsID=ac.AttractionsID
+join area a on t.AreaID=a.AreaID
+join country c on a.CountryID=c.CountryID
+join traveltype p on t.TypeID=p.TypeID
+join travelcomment tc on t.TravelID=tc.TravelID
+  </select>
+  
+  
+  <!--   搜索页主要搜索列表方法 -->
+<select id="getTravelList" parameterType="travelmessage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List2" />
+    <!-- from travelmessage t join area a on t.AreaID=a.AreaID WHERE CountryID !=1 -->
+from travelmessage t 
+join attractions ac on t.AttractionsID=ac.AttractionsID
+join area a on t.AreaID=a.AreaID
+join country c on a.CountryID=c.CountryID
+join traveltype p on t.TypeID=p.TypeID
+join travelcomment tc on t.TravelID=tc.TravelID
+<trim prefix="where" prefixOverrides="and | or">
+<if test="travelname != null and travelname != ''">
+				and travelname like CONCAT ('%',#{travelname},'%')
+			</if>
+			<if test="price != null">
+				and price = #{price}
+			</if>
+			
+			
+			<if test="supplier != null">
+				and supplier = #{supplier}
+			</if>
+			<if test="country != null">
+				and country = #{country}
+			</if>
+			<if test="TFrom != null">
+				and TFrom = #{TFrom}
+			</if>
+			<if test="TDay != null">
+				and TDay = #{TDay}
+			</if>
+			<if test="Mouth != null">
+				and Mouth = #{Mouth}
+			</if>
+			<if test="Shifts != null">
+				and Shifts = #{Shifts}
+			</if>
+		</trim>
+		order by t.TravelID DESC
+  </select>
+ 
+ 
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from travelmessage
+    where TravelID = #{travelid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.pojo.travel.travelmessage">
+    insert into travelmessage (TravelID, TravelName, CheckIn, 
+      CheckOut, Price, Discount, 
+      Supplier, AreaID, AttractionsID, 
+      TypeID, Picture, OutPicture
+      )
+    values (#{travelid,jdbcType=INTEGER}, #{travelname,jdbcType=VARCHAR}, #{checkin,jdbcType=DATE}, 
+      #{checkout,jdbcType=DATE}, #{price,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, 
+      #{supplier,jdbcType=VARCHAR}, #{areaid,jdbcType=INTEGER}, #{attractionsid,jdbcType=INTEGER}, 
+      #{typeid,jdbcType=INTEGER}, #{picture,jdbcType=VARCHAR}, #{outpicture,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.pojo.travel.travelmessage">
+    insert into travelmessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="travelid != null">
+        TravelID,
+      </if>
+      <if test="travelname != null">
+        TravelName,
+      </if>
+      <if test="checkin != null">
+        CheckIn,
+      </if>
+      <if test="checkout != null">
+        CheckOut,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="discount != null">
+        Discount,
+      </if>
+      <if test="supplier != null">
+        Supplier,
+      </if>
+      <if test="areaid != null">
+        AreaID,
+      </if>
+      <if test="attractionsid != null">
+        AttractionsID,
+      </if>
+      <if test="typeid != null">
+        TypeID,
+      </if>
+      <if test="picture != null">
+        Picture,
+      </if>
+      <if test="outpicture != null">
+        OutPicture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="travelid != null">
+        #{travelid,jdbcType=INTEGER},
+      </if>
+      <if test="travelname != null">
+        #{travelname,jdbcType=VARCHAR},
+      </if>
+      <if test="checkin != null">
+        #{checkin,jdbcType=DATE},
+      </if>
+      <if test="checkout != null">
+        #{checkout,jdbcType=DATE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null">
+        #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="attractionsid != null">
+        #{attractionsid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="outpicture != null">
+        #{outpicture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.pojo.travel.travelmessage">
+    update travelmessage
+    <set>
+      <if test="travelname != null">
+        TravelName = #{travelname,jdbcType=VARCHAR},
+      </if>
+      <if test="checkin != null">
+        CheckIn = #{checkin,jdbcType=DATE},
+      </if>
+      <if test="checkout != null">
+        CheckOut = #{checkout,jdbcType=DATE},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="discount != null">
+        Discount = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="supplier != null">
+        Supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null">
+        AreaID = #{areaid,jdbcType=INTEGER},
+      </if>
+      <if test="attractionsid != null">
+        AttractionsID = #{attractionsid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null">
+        TypeID = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        Picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="outpicture != null">
+        OutPicture = #{outpicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TravelID = #{travelid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.pojo.travel.travelmessage">
+    update travelmessage
+    set TravelName = #{travelname,jdbcType=VARCHAR},
+      CheckIn = #{checkin,jdbcType=DATE},
+      CheckOut = #{checkout,jdbcType=DATE},
+      Price = #{price,jdbcType=DOUBLE},
+      Discount = #{discount,jdbcType=DOUBLE},
+      Supplier = #{supplier,jdbcType=VARCHAR},
+      AreaID = #{areaid,jdbcType=INTEGER},
+      AttractionsID = #{attractionsid,jdbcType=INTEGER},
+      TypeID = #{typeid,jdbcType=INTEGER},
+      Picture = #{picture,jdbcType=VARCHAR},
+      OutPicture = #{outpicture,jdbcType=VARCHAR}
+    where TravelID = #{travelid,jdbcType=INTEGER}
+  </update>
+</mapper>
